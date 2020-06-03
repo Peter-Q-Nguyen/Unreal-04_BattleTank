@@ -44,3 +44,20 @@ void ATankAIController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("AIController found player tank - %s"), *PlayerTank->GetName());
 	}
 }
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (GetPlayerTank())
+	{
+		//TODO Move Towards Player
+
+		//Aim towards Player
+		FVector HitLocation = GetPlayerTank()->GetActorLocation();
+
+		GetControlledTank()->AimAt(HitLocation);
+
+		//Fire if ready
+	}
+}
