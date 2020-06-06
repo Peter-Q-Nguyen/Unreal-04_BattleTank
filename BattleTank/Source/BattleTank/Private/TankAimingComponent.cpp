@@ -14,6 +14,11 @@ UTankAimingComponent::UTankAimingComponent()
 }
 
 
+void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+{
+	Barrel = BarrelToSet;
+}
+
 // Called when the game starts
 void UTankAimingComponent::BeginPlay()
 {
@@ -33,8 +38,38 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 }
 
 
-void UTankAimingComponent::AimAt(FVector HitLocation)
+void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
 	auto OurTankName = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *OurTankName, *HitLocation.ToString());
+
+	auto BarrelLocation = Barrel->GetComponentLocation();
+
+	
+	//UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s from %s"), *OurTankName, *HitLocation.ToString(), *BarrelLocation.ToString());
+
+	if (!Barrel) { return; }
+
+	FVector OutTossVelocity(0);
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+
+	//FCollisionResponseParams CollisionResponseParams = FCollisionResponseParams::DefaultResponseParam;
+	//TArray < AActor* > ActorsToIgnore;
+
+	//Calculate launch velocity;
+	if(UGameplayStatics::SuggestProjectileVelocity(
+			this,
+			OutTossVelocity,
+			StartLocation,
+			HitLocation,
+			LaunchSpeed,
+			false,
+			0.0,
+			0.0,
+			ESuggestProjVelocityTraceOption::DoNotTrace
+			//CollisionResponseParams,
+			//ActorsToIgnore,
+			//false
+		))
+		UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *OurTankName, *OutTossVelocity.GetSafeNormal().ToString());
+
 }
