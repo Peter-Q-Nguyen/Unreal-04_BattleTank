@@ -39,21 +39,23 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		StartLocation,
 		HitLocation,
 		LaunchSpeed,
-		//false,
-		//0.0,
-		//0.0,
+		false,
+		0.0,
+		0.0,
 		ESuggestProjVelocityTraceOption::DoNotTrace
 		//CollisionResponseParams,
 		//ActorsToIgnore,
 		//false
 	);
 
+	auto Time = GetWorld()->GetTimeSeconds();
+
 	if (bHaveAimSolution)
 	{
 		auto AimDirection = OutTossVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 
-		auto Time = GetWorld()->GetTimeSeconds();
+	
 
 		UE_LOG(LogTemp, Warning, TEXT("%f Aim Solution Found"), Time);
 	}
