@@ -65,10 +65,10 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 	//	UE_LOG(LogTemp, Warning, TEXT("%f Aim Solution Found"), Time);
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("%f No Aim solve found"), Time);
-	}
+	//else
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("%f No Aim solve found"), Time);
+	//}
 
 	//UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *OurTankName, *OutTossVelocity.GetSafeNormal().ToString());
 
