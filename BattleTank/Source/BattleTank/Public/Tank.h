@@ -11,6 +11,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
+class UTankTrack;
 class AProjectile;
 
 UCLASS()
@@ -25,10 +26,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
-
-
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetTurretReference(UTankTurret* TurretToSet);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetTrackReference(UTankTrack* TrackToSet);
 
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
