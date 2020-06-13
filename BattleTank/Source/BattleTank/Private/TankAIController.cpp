@@ -3,60 +3,51 @@
 #include "Tank.h"
 #include "TankAIController.h"
 
-ATank* ATankAIController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
-ATank* ATankAIController::GetPlayerTank() const
-{
-	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-
-	return Cast<ATank>(PlayerPawn);
-
-}
-
-
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("AIController Begin Play"));
+	//UE_LOG(LogTemp, Warning, TEXT("AIController Begin Play"));
 
-	auto ControlledTank = GetControlledTank();
+	//auto ControlledTank = Cast<ATank>(GetPawn());
 
-	auto PlayerTank = GetPlayerTank();
+	//auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 
-	if (!ControlledTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AIController not possessing a tank"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AIController is possessing tank - %s"), *ControlledTank->GetName());
-	}
+	//if (!ControlledTank)
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("AIController not possessing a tank"));
+	//}
+	//else
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("AIController is possessing tank - %s"), *ControlledTank->GetName());
+	//}
 
-	if (!PlayerTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AIController can't find player tank"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AIController found player tank - %s"), *PlayerTank->GetName());
-	}
+	//if (!PlayerTank)
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("AIController can't find player tank"));
+	//}
+	//else
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("AIController found player tank - %s"), *PlayerTank->GetName());
+	//}
 }
 
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (GetPlayerTank())
+	auto ControlledTank = Cast<ATank>(GetPawn());
+	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+
+	if (ControlledTank && PlayerTank)
 	{
 		//TODO Move Towards Player
 
 		//Aim towards Player
-		FVector HitLocation = GetPlayerTank()->GetActorLocation();
+		FVector HitLocation = PlayerTank->GetActorLocation();
 
-		GetControlledTank()->AimAt(HitLocation);
+		ControlledTank->AimAt(HitLocation);
+
+		ControlledTank->Fire();
 
 		//Fire if ready
 	}
