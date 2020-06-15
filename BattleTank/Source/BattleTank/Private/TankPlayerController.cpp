@@ -7,18 +7,6 @@
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
-
-	auto ControlledTank = GetControlledTank();
-
-	if (!ControlledTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Player controller not possessing a tank"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Player controller is possessing tank - %s"), *ControlledTank->GetName());
-	}
 }
 
 // Called every frame
@@ -82,14 +70,9 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector &
 
 bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
 {
-	//GetLookVectorHitLocation()
 	FHitResult HitResult;
 	auto StartLocation = PlayerCameraManager->GetCameraLocation();
 	auto EndLocation = StartLocation + (LookDirection * LineTraceRange /*FVector(0, 0, LineTraceRange)*/);
-
-	//UE_LOG(LogTemp, Warning, TEXT("StartLocation %s"), *StartLocation.ToString());
-	//UE_LOG(LogTemp, Warning, TEXT("EndLocation %s"), *EndLocation.ToString());
-	//UE_LOG(LogTemp, Warning, TEXT("LookDirection %s"), *LookDirection.ToString());
 
 	if (GetWorld()->LineTraceSingleByChannel(
 		HitResult,

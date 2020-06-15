@@ -17,7 +17,8 @@ void ATankAIController::Tick(float DeltaTime)
 
 	if (ControlledTank && PlayerTank)
 	{
-		//TODO Move Towards Player
+		//TODO Move Towards Player, check radius is in cm
+		MoveToActor(PlayerTank, AcceptanceRadius);
 
 		//Aim towards Player
 		FVector HitLocation = PlayerTank->GetActorLocation();
