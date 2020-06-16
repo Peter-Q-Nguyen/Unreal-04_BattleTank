@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Peter Q Nguyen
 
 #pragma once
 
@@ -16,7 +16,7 @@ class BATTLETANK_API UTankTrack : public UStaticMeshComponent
 
 public:
 	// Sets a throttle between -1 and +1
-	UFUNCTION(BlueprintCallable, Category = Input2)
+	UFUNCTION(BlueprintCallable, Category = "Input2")
 	void SetThrottle(float Throttle);
 	
 	// Max force per track in newtons
