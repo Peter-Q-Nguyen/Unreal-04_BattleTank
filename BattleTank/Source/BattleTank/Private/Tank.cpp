@@ -19,7 +19,7 @@ ATank::ATank()
 void ATank::Fire()
 {
 	bool IsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (Barrel && IsReloaded)
+	if (ensure(Barrel) && IsReloaded)
 	{
 
 		//Spawn a projectile
@@ -52,7 +52,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ATank::AimAt(FVector HitLocation)
 {
-	if (TankAimingComponent != nullptr)
+	if (ensure(TankAimingComponent) )
 		TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
