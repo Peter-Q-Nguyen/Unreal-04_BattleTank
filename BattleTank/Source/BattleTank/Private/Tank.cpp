@@ -14,7 +14,6 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
 	LastFireTime = FPlatformTime::Seconds();
-
 }
 
 void ATank::Fire()
@@ -40,7 +39,6 @@ void ATank::Fire()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 
