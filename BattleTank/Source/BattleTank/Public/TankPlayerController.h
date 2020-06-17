@@ -15,6 +15,10 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank* GetControlledTank() const;
+
 private:
 
 	UPROPERTY(EditDefaultsOnly)
@@ -31,7 +35,7 @@ private:
 	
 	virtual void Tick(float DeltaTime) override;
 
-	ATank* GetControlledTank() const;
+
 
 	//start the tank moving the barrel so a shot would hit where the crosshair intersects with the world
 	void AimTowardsCrosshair();

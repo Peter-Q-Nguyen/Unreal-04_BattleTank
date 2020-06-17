@@ -43,9 +43,10 @@ public:
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
 protected:
+	UPROPERTY(BlueprintReadOnly, Category = "Firing")
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
-	UPROPERTY(BlueprintReadOnly, Category = Movement)
+	UPROPERTY(BlueprintReadOnly, Category = "Movement")
 	UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:
