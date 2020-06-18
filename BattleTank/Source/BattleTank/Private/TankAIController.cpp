@@ -26,6 +26,8 @@ void ATankAIController::Tick(float DeltaTime)
 
 		TankAimingComponent->AimAt(HitLocation);
 
+		TankAimingComponent->Fire();
+
 		//ControlledTank->Fire();
 
 		//Fire if ready
