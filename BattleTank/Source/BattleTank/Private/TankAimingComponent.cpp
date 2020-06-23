@@ -67,13 +67,18 @@ void UTankAimingComponent::Fire()
 	}
 }
 
+EFiringState UTankAimingComponent::GetFiringState() const
+{
+	return FiringState;
+}
+
 bool UTankAimingComponent::IsBarrelMoving()
 {
 	if (!ensure(Barrel))
 		return false;
 
 	auto CurrentForward = Barrel->GetForwardVector();
-	return !TargetAimDirection.Equals(CurrentForward, 0.01);
+	return !TargetAimDirection.Equals(CurrentForward, 0.05);
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)

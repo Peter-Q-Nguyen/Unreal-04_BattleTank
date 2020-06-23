@@ -26,10 +26,8 @@ void ATankAIController::Tick(float DeltaTime)
 
 		TankAimingComponent->AimAt(HitLocation);
 
-		TankAimingComponent->Fire();
-
-		//ControlledTank->Fire();
-
-		//Fire if ready
+		//if aiming or locked, fire
+		if (TankAimingComponent->GetFiringState() == EFiringState::Locked)
+			TankAimingComponent->Fire();
 	}
 }
