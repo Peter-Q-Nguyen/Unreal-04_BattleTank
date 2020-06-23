@@ -6,6 +6,8 @@
 #include "Projectile.h"
 #include "Kismet/GameplayStatics.h"
 
+
+
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
 {
@@ -32,7 +34,11 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	//Super::TickComponent(DeltaTime,TickType,ThisTickFunction);
 	//GetWorld()->GetTimeSeconds() // also works
 
-	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+	if (IsOutOfAmmo())
+	{
+		FiringState = EFiringState::OutOfAmmo;
+	}
+	else if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
 	{
 		FiringState = EFiringState::Reloading;
 	}
@@ -50,7 +56,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 void UTankAimingComponent::Fire()
 {
 
-	if (FiringState != EFiringState::Reloading)
+	if (FiringState != EFiringState::Reloading && FiringState != EFiringState::OutOfAmmo)
 	{
 		if (!ensure(Barrel)) { return; }
 		if (!ensure(ProjectileBlueprint)) { return; }
@@ -63,6 +69,8 @@ void UTankAimingComponent::Fire()
 
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
+
+		CurrentAmmo--;
 
 	}
 }
@@ -79,6 +87,14 @@ bool UTankAimingComponent::IsBarrelMoving()
 
 	auto CurrentForward = Barrel->GetForwardVector();
 	return !TargetAimDirection.Equals(CurrentForward, 0.05);
+}
+
+bool UTankAimingComponent::IsOutOfAmmo()
+{
+	if (CurrentAmmo == 0)
+		return true;
+	else
+		return false;
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
@@ -133,8 +149,11 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	else
 		Turret->RotateTurret(-DeltaRotator.Yaw);
 
-
-
 	Barrel->Elevate(DeltaRotator.Pitch);
 
+}
+
+int UTankAimingComponent::GetAmmoRemaining() const
+{
+	return CurrentAmmo;
 }
