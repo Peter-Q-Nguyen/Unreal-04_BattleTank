@@ -153,7 +153,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 }
 
-int UTankAimingComponent::GetAmmoRemaining() const
+int32 UTankAimingComponent::GetAmmoRemaining() const
 {
 	return CurrentAmmo;
 }

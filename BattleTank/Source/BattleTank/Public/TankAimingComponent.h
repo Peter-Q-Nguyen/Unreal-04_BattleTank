@@ -32,9 +32,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float LaunchSpeed = 4000;
-
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
@@ -48,7 +45,7 @@ protected:
 	EFiringState FiringState = EFiringState::Reloading;
 
 	UFUNCTION(BlueprintCallable, Category = "Firing")
-	int GetAmmoRemaining() const;
+	int32 GetAmmoRemaining() const;
 
 private:
 	// Sets default values for this component's properties
@@ -63,10 +60,19 @@ private:
 	UTankTurret* Turret = nullptr;
 
 	void MoveBarrelTowards(FVector AimDirection);
-	
-	float ReloadTimeInSeconds = 3;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float ReloadTimeInSeconds = 3;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float LaunchSpeed = 4000;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		int32 CurrentAmmo = 3;
+
+
+
 	double LastFireTime = 0;
-	int CurrentAmmo = 3;
 
 	FVector TargetAimDirection;
 };
