@@ -24,7 +24,6 @@ protected:
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 	void LaunchProjectile(float Speed);
 
 private:
@@ -32,4 +31,8 @@ private:
 	UStaticMeshComponent* CollisionMesh = nullptr;
 	UPROPERTY(VisibleAnywhere, Category = "Projectile")
 	UParticleSystemComponent* LaunchBlast = nullptr;
+	UPROPERTY(VisibleAnywhere, Category = "Projectile")
+	UParticleSystemComponent* ImpactBlast = nullptr;
+	UFUNCTION(BlueprintCallable, Category = "Collision")
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 };
