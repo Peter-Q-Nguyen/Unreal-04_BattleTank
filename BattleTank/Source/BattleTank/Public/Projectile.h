@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "PhysicsEngine/RadialForceComponent.h"
 #include "Projectile.generated.h"
 
 class UProjectileMovementComponent;
@@ -29,10 +30,24 @@ public:
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Projectile")
 	UStaticMeshComponent* CollisionMesh = nullptr;
+
 	UPROPERTY(VisibleAnywhere, Category = "Projectile")
 	UParticleSystemComponent* LaunchBlast = nullptr;
+
 	UPROPERTY(VisibleAnywhere, Category = "Projectile")
 	UParticleSystemComponent* ImpactBlast = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Projectile")
+	URadialForceComponent * ExplosionForce = nullptr;
+
 	UFUNCTION(BlueprintCallable, Category = "Collision")
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float DestroyDelay = 10.0f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float ProjectileDamage = 15.0f;
+
+	void DestroyProjectile();
 };
