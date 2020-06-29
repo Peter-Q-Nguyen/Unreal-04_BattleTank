@@ -1,8 +1,8 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+// Copyright Peter Q Nguyen
 
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
+#include "Tank.h" // so we can implement onDeath
 
 void ATankPlayerController::BeginPlay()
 {
@@ -23,6 +23,18 @@ void ATankPlayerController::Tick(float DeltaTime)
 	Super::Tick( DeltaTime );
 	AimTowardsCrosshair();
 	//UE_LOG(LogTemp, Warning, TEXT("Tick %i"), DeltaTime);
+}
+
+void ATankPlayerController::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) { return; }
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDeath);
+
+	}
 }
 
 void ATankPlayerController::AimTowardsCrosshair()
@@ -88,4 +100,10 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 	}
 	else
 		return false;
+}
+
+void ATankPlayerController::OnTankDeath()
+{
+	//UE_LOG(LogTemp, Warning, TEXT("PlayerDeath"));
+	StartSpectatingOnly();
 }

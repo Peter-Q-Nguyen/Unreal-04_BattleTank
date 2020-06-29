@@ -19,10 +19,15 @@ private:
 
 	void BeginPlay() override;
 
+	virtual void SetPawn(APawn* InPawn) override;
+
 	virtual void Tick(float DeltaTime) override;
 
 	//How close can the AI tank get to the player
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float AcceptanceRadius = 7000;
+
+	UFUNCTION()
+	void OnTankDeath();
 
 };

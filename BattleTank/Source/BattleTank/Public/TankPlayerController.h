@@ -37,6 +37,8 @@ private:
 	
 	virtual void Tick(float DeltaTime) override;
 
+	virtual void SetPawn(APawn* InPawn) override;
+
 	//start the tank moving the barrel so a shot would hit where the crosshair intersects with the world
 	void AimTowardsCrosshair();
 
@@ -46,4 +48,6 @@ private:
 
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
 
+	UFUNCTION()
+	void OnTankDeath();
 };

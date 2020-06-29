@@ -1,11 +1,25 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Peter Q Nguyen
 
 #include "TankAIController.h"
 #include "TankAimingComponent.h"
+#include "Tank.h" // so we can implement onDeath
 
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ATankAIController::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) { return; }
+
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnTankDeath);
+
+	}
 }
 
 void ATankAIController::Tick(float DeltaTime)
@@ -30,4 +44,10 @@ void ATankAIController::Tick(float DeltaTime)
 		if (TankAimingComponent->GetFiringState() == EFiringState::Locked)
 			TankAimingComponent->Fire();
 	}
+}
+
+void ATankAIController::OnTankDeath()
+{
+	//UE_LOG(LogTemp, Warning, TEXT("AIDeath"));
+	GetPawn()->DetachFromControllerPendingDestroy();
 }
