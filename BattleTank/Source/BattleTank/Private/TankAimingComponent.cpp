@@ -1,8 +1,8 @@
 // Copyright Peter Q Nguyen
 
+#include "TankAimingComponent.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
-#include "TankAimingComponent.h"
 #include "Projectile.h"
 #include "Kismet/GameplayStatics.h"
 

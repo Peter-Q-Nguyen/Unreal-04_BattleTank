@@ -68,7 +68,7 @@ private:
 		float LaunchSpeed = 4000;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-		int32 CurrentAmmo = 3;
+		int32 CurrentAmmo = 20;
 
 
 

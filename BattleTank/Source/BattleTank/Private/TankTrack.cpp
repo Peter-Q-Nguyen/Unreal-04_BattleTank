@@ -1,7 +1,8 @@
 // Copyright Peter Q Nguyen
 
-#include "UObject/UObjectBaseUtility.h"
 #include "TankTrack.h"
+#include "UObject/UObjectBaseUtility.h"
+
 
 UTankTrack::UTankTrack()
 {
@@ -17,8 +18,6 @@ void UTankTrack::BeginPlay()
 
 void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("HIT"));
-
 	//Drive tracks, apply sideways force
 	DriveTrack();
 	ApplySidewaysForce();
