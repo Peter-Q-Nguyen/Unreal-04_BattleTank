@@ -28,22 +28,22 @@ void ATankAIController::Tick(float DeltaTime)
 
 	auto ControlledTank = GetPawn();
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
+
+	if (!(PlayerTank && ControlledTank)) { return; }
+	
+	//TODO Move Towards Player, check radius is in cm
+	MoveToActor(PlayerTank, AcceptanceRadius);
+
+	//Aim towards Player
 	auto TankAimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
+	FVector HitLocation = PlayerTank->GetActorLocation();
 
-	if (ensure(PlayerTank))
-	{
-		//TODO Move Towards Player, check radius is in cm
-		MoveToActor(PlayerTank, AcceptanceRadius);
+	TankAimingComponent->AimAt(HitLocation);
 
-		//Aim towards Player
-		FVector HitLocation = PlayerTank->GetActorLocation();
-
-		TankAimingComponent->AimAt(HitLocation);
-
-		//if aiming or locked, fire
-		if (TankAimingComponent->GetFiringState() == EFiringState::Locked)
-			TankAimingComponent->Fire();
-	}
+	//if aiming or locked, fire
+	if (TankAimingComponent->GetFiringState() == EFiringState::Locked)
+		TankAimingComponent->Fire();
+	
 }
 
 void ATankAIController::OnTankDeath()
