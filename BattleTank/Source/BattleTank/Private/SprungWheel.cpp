@@ -60,7 +60,7 @@ void ASprungWheel::Tick(float DeltaTime)
 
 void ASprungWheel::AddDrivingForce(float ForceMagnitude)
 {
-	Wheel->AddForce(Axle->GetForwardVector() * ForceMagnitude);
+	Wheel2->AddForce(Axle->GetForwardVector() * ForceMagnitude);
 }
 
 void ASprungWheel::SetupConstraint()
